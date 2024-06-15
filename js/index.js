@@ -13,17 +13,17 @@ const fetchData = async () => {
       throw new Error(`fel i databas ${res.status}`);
     }
     const data = await res.json();
-    const filteredData= updateData(data)
+    const filteredData = updateData(data);
 
-    const countries= [...filteredData];
-    const random= [...filteredData];
-    const continents= [...filteredData]
+    const countries = [...filteredData];
+    const random = [...filteredData];
+    const continents = [...filteredData];
 
     await getRandomCountry(random);
     getTop10BiggestCountries(filteredData);
     getTop10HighestPopulation(data);
-    countryStartsWith(countries)
-    allCountriesInContinent(continents)
+    countryStartsWith(countries);
+    allCountriesInContinent(continents);
   } catch (error) {
     console.error(error);
   }
@@ -50,39 +50,36 @@ const getRandomCountry = async (data) => {
   console.log(data[index]);
   await showRandomCountry(data[index]);
 };
-const formatNumberWithCommas=(number) =>{
+const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-const updateData = (data)=>{
-  data.forEach(country =>{
-    country.population = parseInt(country.population)
-    country.area=parseInt(country.area)
-    if(country.continent==="EU"){
-      country.continent="Europe"
-     }
-    else if(country.continent==="NA"){
-      country.continent="North America"
-     }
-     else if(country.continent==="SA"){
-      country.continent="South America"
-     }
-     else if(country.continent==="AS"){
-      country.continent="Asia"
-     }
-     else if(country.continent==="OC"){
-      country.continent="Oceania"
-     }
-     else if(country.continent==="AF"){
-      country.continent="Africa"
-     }
-  })
-  
-  const updatedData = data.filter(country => {
-    return country.population >= 10000 || country.name === "Vatican" || country.name === "Antarctica";
-});
-   
+};
+const updateData = (data) => {
+  data.forEach((country) => {
+    country.population = parseInt(country.population);
+    country.area = parseInt(country.area);
+    if (country.continent === "EU") {
+      country.continent = "Europe";
+    } else if (country.continent === "NA") {
+      country.continent = "North America";
+    } else if (country.continent === "SA") {
+      country.continent = "South America";
+    } else if (country.continent === "AS") {
+      country.continent = "Asia";
+    } else if (country.continent === "OC") {
+      country.continent = "Oceania";
+    } else if (country.continent === "AF") {
+      country.continent = "Africa";
+    }
+  });
+
+  const updatedData = data.filter((country) => {
+    return (
+      country.population >= 20000 || country.name === "Vatican" || country.name === "Antarctica"
+    );
+  });
+
   return updatedData;
-}
+};
 const showRandomCountry = async (data) => {
   const app = document.getElementById("randomCountry");
 
@@ -93,7 +90,7 @@ const showRandomCountry = async (data) => {
 
   img.src = `https://flagsapi.com/${data.alpha_2}/shiny/64.png`;
   img.alt = `Bild av ${data.name}`;
-  
+
   container.appendChild(img);
 
   const h2 = document.createElement("h2");
@@ -149,8 +146,8 @@ const getTop10BiggestCountries = (data) => {
     return b.area - a.area;
   });
   const gameArray = sort10.splice(0, 10);
-  console.log(gameArray)
-  const icon= `<i class="fa-solid fa-earth-europe icon green"></i>`
+  console.log(gameArray);
+  const icon = `<i class="fa-solid fa-earth-europe icon green"></i>`;
   top10Button(gameArray, "De tio största länderna", icon);
 };
 const chooseGameContainer = document.querySelector("#chooseGameContainer");
@@ -161,8 +158,8 @@ const gameContainer = document.querySelector("#container");
 const getTop10HighestPopulation = (data) => {
   const sort10 = data.sort((a, b) => b.population - a.population);
   const gameArray = sort10.splice(0, 10);
-  console.log(gameArray)
-  const icon= `<i class="fa-solid fa-people-group icon yellow"></i>`
+  console.log(gameArray);
+  const icon = `<i class="fa-solid fa-people-group icon yellow"></i>`;
   top10Button(gameArray, "De 10 folkrikaste länderna", icon);
 };
 const top10Button = (top10, header, icon) => {
@@ -170,11 +167,11 @@ const top10Button = (top10, header, icon) => {
   div.classList.add("button-box");
   const h3 = document.createElement("h3");
   h3.innerHTML = header;
-  h3.style.color="white"
+  h3.style.color = "white";
   div.appendChild(h3);
-  const p= document.createElement("p");
-  p.innerHTML=icon;
-  div.appendChild(p)
+  const p = document.createElement("p");
+  p.innerHTML = icon;
+  div.appendChild(p);
 
   const gameButton = document.createElement("button");
   gameButton.classList.add("game-button");
@@ -187,78 +184,102 @@ const top10Button = (top10, header, icon) => {
   div.appendChild(gameButton);
   chooseGameContainer.appendChild(div);
 };
-const countryStartsWith= (data)=>{
+const countryStartsWith = (data) => {
   const div = document.createElement("div");
   div.classList.add("button-box");
   const h3 = document.createElement("h3");
-  h3.innerHTML = "Alla länder som startar på bokstaven...";
-  h3.style.color="white"
+  h3.innerHTML = "Länder på bokstaven...";
+  h3.style.color = "white";
   div.appendChild(h3);
-  const p= document.createElement("p");
-  p.innerHTML=`<i class="fa-solid fa-book-open icon pink"></i>`
-  div.appendChild(p)
+  const p = document.createElement("p");
+  p.innerHTML = `<i class="fa-solid fa-book-open icon pink"></i>`;
+  div.appendChild(p);
 
   const gameButton = document.createElement("button");
   gameButton.classList.add("game-button");
   gameButton.innerHTML = `Starta spelet`;
-  gameButton.addEventListener("click", ()=>{
+  gameButton.addEventListener("click", () => {
     list1.innerHTML = "";
     gameArea.innerHTML = "";
-    showLetters(data)
-  })
-  
-  div.appendChild(gameButton)
+    showLetters(data);
+  });
+
+  div.appendChild(gameButton);
   chooseGameContainer.appendChild(div);
+};
+const showLetters = (data) => {
+  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+  const headline = document.createElement("h2");
+  headline.innerHTML = `Alla länder som startar på bokstaven...`;
 
-}
-const showLetters=(data)=>{
-const letters="abcdefghijklmnopqrstuvwxyz".split("")
-const headline=document.createElement("h2");
-headline.innerHTML=`Alla länder som startar på bokstaven...`
-const container=document.createElement("div");
-container.classList.add("letter-container")
-
-letters.forEach(letter=>{
-const button= document.createElement("button");
-button.innerHTML=letter;
-button.classList.add("letter");
-button.addEventListener("click", ()=>{
-const header=`Alla länder som startar på ${letter}`
-gameArea.innerHTML=""
-const returnCountries= returnCountriesByLetter(data,letter)
-startGame(returnCountries, header)
-})
-container.appendChild(button)
-})
-gameArea.appendChild(container)
-}
-const returnCountriesByLetter = (data,letter)=>{
-  const filterCountries= data.filter(item=>item.name.toLowerCase().startsWith(letter))
-  return filterCountries
-}
-const allCountriesInContinent= (data)=>{
+  const container = document.createElement("div");
+  container.classList.add("letter-container");
+  letters.forEach((letter) => {
+    const button = document.createElement("button");
+    button.innerHTML = letter;
+    button.classList.add("letter");
+    button.addEventListener("click", () => {
+      const header = `Alla länder som startar på ${letter.toUpperCase()}`;
+      gameArea.innerHTML = "";
+      const returnCountries = returnCountriesByLetter(data, letter);
+      startGame(returnCountries, header);
+    });
+    container.appendChild(button);
+  });
+  gameArea.appendChild(headline);
+  gameArea.appendChild(container);
+};
+const returnCountriesByLetter = (data, letter) => {
+  const filterCountries = data.filter((item) => item.name.toLowerCase().startsWith(letter));
+  return filterCountries;
+};
+const allCountriesInContinent = (data) => {
   const div = document.createElement("div");
   div.classList.add("button-box");
   const h3 = document.createElement("h3");
-  h3.innerHTML = "Alla länder som startar på bokstaven...";
-  h3.style.color="white"
+  h3.innerHTML = "Alla länder i kontinenten";
+  h3.style.color = "white";
   div.appendChild(h3);
-  const p= document.createElement("p");
-  p.innerHTML=`<i class="fa-solid fa-book-open icon pink"></i>`
-  div.appendChild(p)
+  const p = document.createElement("p");
+  p.innerHTML = `<i class="fa-solid fa-earth-americas icon purple"></i>`;
+  div.appendChild(p);
 
   const gameButton = document.createElement("button");
   gameButton.classList.add("game-button");
   gameButton.innerHTML = `Starta spelet`;
-  gameButton.addEventListener("click", ()=>{
+  gameButton.addEventListener("click", () => {
     list1.innerHTML = "";
     gameArea.innerHTML = "";
-  })
-  div.appendChild(gameButton)
+    displayContinents(data)
+  });
+  div.appendChild(gameButton);
   chooseGameContainer.appendChild(div);
-  
-  const continents= ["Europe", "Asia", "Oceania", "South America", "North America", "Africa"];
+};
+const displayContinents = (data) => {
+  const continents= ["Europe", "Asia", "North America", "South America", "Oceania", "Africa"]
+  const headline = document.createElement("h2");
+  headline.innerHTML = `Alla länder i kontinenten`;
+  gameArea.appendChild(headline);
+  const container = document.createElement("div");
+  container.classList.add("letter-container");
+  continents.forEach(continent=>{
+    const button = document.createElement("button");
+    button.innerHTML = continent;
+    button.classList.add("continent-button")
+    container.appendChild(button)
 
+    button.addEventListener("click", ()=>{
+     const filterData= matchCountrieswithContinent(data, continent);
+     const header=`Alla länder i ${continent}`
+     gameArea.innerHTML=""
+     list1.innerHTML=""
+     startGame(filterData, header)
+    })
+  })
+  gameArea.appendChild(container)
+};
+const matchCountrieswithContinent= (data, continent)=>{
+ return data.filter(country=>country.continent===continent)
 }
 const startGame = (data, headline) => {
   gameArea.classList.add("center-content");
@@ -270,6 +291,7 @@ const startGame = (data, headline) => {
   h2.innerHTML = headline;
   const p = document.createElement("p");
   p.innerHTML = "Svårighetsgraden baseras på tid";
+  p.style.color = "white";
 
   firstBox.appendChild(h2);
   firstBox.appendChild(p);
@@ -329,7 +351,7 @@ const top10GameOn = (data, headline, time) => {
       submit.disabled = true;
       endGame(data, correctGuess, score);
     }
-    if(score===data.length){
+    if (score === data.length) {
       endGame(data, correctGuess, score);
     }
   }, 1000);
@@ -428,7 +450,7 @@ const returnAllAnswers = (data, array) => {
     return country;
   });
   list1.innerHTML = "";
-  rightOrWrong.forEach((country, index)=> {
+  rightOrWrong.forEach((country, index) => {
     showResult(country, index);
   });
 };
@@ -438,10 +460,10 @@ const showResult = (country, index) => {
   if (!country.exist) {
     li.classList.add("wrong");
   }
-  const name= document.createElement("p");
-  name.innerHTML=`#${index+1} ${country.name}`
-  name.classList.add("information")
+  const name = document.createElement("p");
+  name.innerHTML = `#${index + 1} ${country.name}`;
+  name.classList.add("information");
   li.appendChild(name);
-  
+
   list1.appendChild(li);
 };

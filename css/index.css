@@ -196,3 +196,12 @@ border-width: 70%;
     color: rgb(34, 34, 34);
     border-radius: 5px;
 }
+.continent-button {
+    width: 250px;
+    height: 40px;
+    background: rgb(255, 87, 255);
+    color: rgb(34, 34, 34);
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+}

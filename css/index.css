@@ -51,7 +51,7 @@ h1{
 }
 h2{
     font-size: 2rem;
-    color: #85fc4e;
+    color: rgb(255, 133, 255);
 }
 .button-box {
     display: flex;
@@ -200,7 +200,7 @@ border-width: 70%;
 .continent-button {
     width: 250px;
     height: 40px;
-    background: rgb(255, 87, 255);
+    background: rgb(135, 255, 87);
     color: rgb(34, 34, 34);
     border-radius: 5px;
     display: grid;

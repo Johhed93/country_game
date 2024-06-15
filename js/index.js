@@ -537,3 +537,8 @@ const quizGame= (data)=>{
 
   gameArea.appendChild(firstBox);
 }
+const startQuizGame = (data, time)=>{
+let answers= [];
+let score=0;
+
+}

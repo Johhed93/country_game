@@ -16,12 +16,14 @@ const fetchData = async () => {
     const filteredData= updateData(data)
 
     const countries= [...filteredData];
-    const random= [...filteredData]
+    const random= [...filteredData];
+    const continents= [...filteredData]
 
     await getRandomCountry(random);
     getTop10BiggestCountries(filteredData);
     getTop10HighestPopulation(data);
     countryStartsWith(countries)
+    allCountriesInContinent(continents)
   } catch (error) {
     console.error(error);
   }
@@ -225,10 +227,8 @@ const header=`Alla länder som startar på ${letter}`
 gameArea.innerHTML=""
 const returnCountries= returnCountriesByLetter(data,letter)
 startGame(returnCountries, header)
-
 })
 container.appendChild(button)
-
 })
 gameArea.appendChild(container)
 }
@@ -237,9 +237,28 @@ const returnCountriesByLetter = (data,letter)=>{
   return filterCountries
 }
 const allCountriesInContinent= (data)=>{
+  const div = document.createElement("div");
+  div.classList.add("button-box");
+  const h3 = document.createElement("h3");
+  h3.innerHTML = "Alla länder som startar på bokstaven...";
+  h3.style.color="white"
+  div.appendChild(h3);
+  const p= document.createElement("p");
+  p.innerHTML=`<i class="fa-solid fa-book-open icon pink"></i>`
+  div.appendChild(p)
+
+  const gameButton = document.createElement("button");
+  gameButton.classList.add("game-button");
+  gameButton.innerHTML = `Starta spelet`;
+  gameButton.addEventListener("click", ()=>{
+    list1.innerHTML = "";
+    gameArea.innerHTML = "";
+  })
+  div.appendChild(gameButton)
+  chooseGameContainer.appendChild(div);
+  
   const continents= ["Europe", "Asia", "Oceania", "South America", "North America", "Africa"];
-  
-  
+
 }
 const startGame = (data, headline) => {
   gameArea.classList.add("center-content");
@@ -308,6 +327,9 @@ const top10GameOn = (data, headline, time) => {
     if (time < 0) {
       clearInterval(timerInterval);
       submit.disabled = true;
+      endGame(data, correctGuess, score);
+    }
+    if(score===data.length){
       endGame(data, correctGuess, score);
     }
   }, 1000);

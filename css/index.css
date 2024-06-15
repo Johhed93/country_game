@@ -178,6 +178,9 @@ border-width: 70%;
 .pink {
     color: rgb(255, 133, 153);
 }
+.purple {
+    color: rgb(255, 87, 255);
+}
 .letter-container {
     display: flex;
     gap: 10px;

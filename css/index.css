@@ -1,0 +1,195 @@
+main{
+    width: 85%;
+    margin-inline: auto;
+}
+.split{
+    display: flex;
+    gap: 50px;
+}
+button{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-family: "Bebas Neue", sans-serif;
+}
+.split-content{
+    width: 50%;
+    display: flex;
+    padding: 60px 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 200px;
+    gap: 10px;
+    border-radius: 50px;
+    
+}
+.highlight{
+    background: linear-gradient(to right, #43c6ac, #9ba805);
+    color: white;
+}
+h1{
+    font-size: 2.5rem;
+}
+.hero-text{
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+.info-box{
+    flex-direction: row;
+    background-color: rgb(29, 31, 54);
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 100px;
+}
+.column-content{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+h2{
+    font-size: 2rem;
+    color: #85fc4e;
+}
+.button-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.game-button {
+    padding: 10px 30px;
+    border-radius: 5px;
+    background: rgb(38, 50, 75);
+    transition: .5s ease-in-out;
+    font-size: 1.1rem;
+    color: rgb(235, 235, 235);
+}
+.medium {
+    background:#35cee9;
+}
+.hard{
+    background:  #ee394e;
+}
+.button-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.game-buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.timer {
+    display: grid;
+    place-items: center;
+    height: 150px;
+    width: 150px;
+    border: 10px solid rgb(252, 89, 252);
+    border-radius: 50%;
+    position: relative;
+    color: white;
+}
+.timer::before{
+position: absolute;
+content: "";
+border: #2c2c2c 10px solid;
+height: 100%;
+width: 100%;
+border-radius: 50%;
+z-index: -1;
+border-width: 70%;
+
+}
+.gameInput {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px black solid;
+    outline: none;
+}
+.gameButton{
+    padding: 12px 20px;
+    border-radius: 5px;
+    background: rgb(23, 187, 23);
+    color: white;
+    margin-left: 10px;
+}
+.time{
+    font-size: 1.5rem;
+    font-family: "Bebas Neue", sans-serif;
+}
+.gamelist{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 40%;
+    gap: 5px;
+}
+.answers{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.correct{
+    background:  #67b26f;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 5px;
+}
+.result {
+    display: flex;
+    background: rgb(111, 255, 111);
+    width: 100%;
+    padding: 15px 40px;
+    border-radius: 5px;
+    color: white;
+    gap: 10px;
+}
+.information{
+    width: 200px;
+}
+.wrong  {
+    background: rgb(255, 119, 119);
+}
+.right{
+    background: rgb(111, 255, 111);
+}
+.show-all{
+    background: #27d338;
+}
+.try-again {
+    background: rgb(163, 163, 0);
+}
+.icon{
+    font-size: 2.5rem;
+}
+.green {
+    color: rgb(98, 245, 98);
+}
+.yellow {
+    color: #f1ff5d;
+}
+.pink {
+    color: rgb(255, 133, 153);
+}
+.letter-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.letter {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: #5ff86e;
+    color: rgb(34, 34, 34);
+    border-radius: 5px;
+}

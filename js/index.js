@@ -301,17 +301,14 @@ const matchCapital = (data)=>{
   gameButton.addEventListener("click", () => {
     list1.innerHTML = "";
     gameArea.innerHTML = "";
-    showLetters(data);
+    quizGame(data);
   });
-
   div.appendChild(gameButton);
   chooseGameContainer.appendChild(div);
 }
 const startGame = (data, headline) => {
   gameArea.classList.add("center-content");
-
   const firstBox = document.createElement("div");
-
   firstBox.classList.add("button-box");
   const h2 = document.createElement("h2");
   h2.innerHTML = headline;
@@ -493,3 +490,50 @@ const showResult = (country, index) => {
 
   list1.appendChild(li);
 };
+const quizGame= (data)=>{
+  gameArea.classList.add("center-content");
+  const firstBox = document.createElement("div");
+  firstBox.classList.add("button-box");
+  const h2 = document.createElement("h2");
+  h2.innerHTML = "Matcha huvudstad med land";
+  const p = document.createElement("p");
+  p.innerHTML = "Svårighetsgraden baseras på tid";
+  p.style.color = "white";
+
+  firstBox.appendChild(h2);
+  firstBox.appendChild(p);
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container");
+  firstBox.appendChild(buttonContainer);
+  const easyGame = document.createElement("button");
+  easyGame.classList.add("game-button");
+  easyGame.innerHTML = "Långt spel";
+  easyGame.addEventListener("click", () => {
+    gameArea.innerHTML = "";
+    top10GameOn(data, headline, 240);
+  });
+  buttonContainer.appendChild(easyGame);
+
+  const medium = document.createElement("button");
+  medium.innerHTML = "Medel långt";
+  medium.classList.add("game-button");
+  medium.classList.add("medium");
+  medium.addEventListener("click", () => {
+    gameArea.innerHTML = "";
+    top10GameOn(data, headline, 180);
+  });
+  buttonContainer.appendChild(medium);
+
+  const hard = document.createElement("button");
+  hard.innerHTML = "Kort spel";
+  hard.classList.add("game-button");
+  hard.classList.add("hard");
+  hard.addEventListener("click", () => {
+    gameArea.innerHTML = "";
+    top10GameOn(data, headline, 10);
+  });
+  buttonContainer.appendChild(hard);
+
+  gameArea.appendChild(firstBox);
+}

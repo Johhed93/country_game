@@ -18,12 +18,15 @@ const fetchData = async () => {
     const countries = [...filteredData];
     const random = [...filteredData];
     const continents = [...filteredData];
+    const capitals = [...filteredData]
 
     await getRandomCountry(random);
     getTop10BiggestCountries(filteredData);
     getTop10HighestPopulation(data);
     countryStartsWith(countries);
     allCountriesInContinent(continents);
+    matchCapital(capitals)
+
   } catch (error) {
     console.error(error);
   }
@@ -280,6 +283,29 @@ const displayContinents = (data) => {
 };
 const matchCountrieswithContinent= (data, continent)=>{
  return data.filter(country=>country.continent===continent)
+}
+const matchCapital = (data)=>{
+  const div = document.createElement("div");
+  div.classList.add("button-box");
+  const h3 = document.createElement("h3");
+  h3.innerHTML = "Vilken huvudstad tillhör landet";
+  h3.style.color = "white";
+  div.appendChild(h3);
+  const p = document.createElement("p");
+  p.innerHTML = `<i class="fa-solid fa-landmark icon blue"></i>`;
+  div.appendChild(p);
+
+  const gameButton = document.createElement("button");
+  gameButton.classList.add("game-button");
+  gameButton.innerHTML = `Starta spelet`;
+  gameButton.addEventListener("click", () => {
+    list1.innerHTML = "";
+    gameArea.innerHTML = "";
+    showLetters(data);
+  });
+
+  div.appendChild(gameButton);
+  chooseGameContainer.appendChild(div);
 }
 const startGame = (data, headline) => {
   gameArea.classList.add("center-content");

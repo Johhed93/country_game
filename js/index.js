@@ -371,12 +371,9 @@ const top10GameOn = (data, headline, time) => {
     time--;
     if (time < 0) {
       clearInterval(timerInterval);
-      submit.disabled = true;
       endGame(data, correctGuess, score);
     }
-    if (score === data.length) {
-      endGame(data, correctGuess, score);
-    }
+   
   }, 1000);
   timer.appendChild(timeLeft);
   gameArea.appendChild(timer);
@@ -408,12 +405,20 @@ const top10GameOn = (data, headline, time) => {
     score++;
     list1.innerHTML = "";
     input.value = "";
+
     scoreText.innerHTML = `${score}/${data.length}`;
     responsBackground("right");
     correctGuess.forEach((correct) => {
       showAnswer(correct);
     });
+    setTimeout(() => {
+      if (score === data.length) {
+        endGame(data, correctGuess, score);
+      }
+    }, 1000);
+    
   });
+  
   form.appendChild(input);
   form.appendChild(submit);
   gameArea.appendChild(form);
@@ -540,5 +545,23 @@ const quizGame= (data)=>{
 const startQuizGame = (data, time)=>{
 let answers= [];
 let score=0;
+const timer = document.createElement("div");
+  timer.classList.add("timer");
+  const timeLeft = document.createElement("p");
+  timeLeft.classList.add("time");
+  const timerInterval = setInterval(() => {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
 
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+    timeLeft.textContent = `${minutes}:${seconds}`;
+    time--;
+    if (time < 0) {
+      clearInterval(timerInterval);
+      endGame(data, correctGuess, score);
+    }
+  }, 1000);
+  timer.appendChild(timeLeft);
+  gameArea.appendChild(timer);
 }

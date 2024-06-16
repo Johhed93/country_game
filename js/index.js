@@ -157,6 +157,7 @@ const chooseGameContainer = document.querySelector("#chooseGameContainer");
 const gameArea = document.querySelector("#game");
 const list1 = document.querySelector("#list1");
 const gameContainer = document.querySelector("#container");
+const bottomLocation= document.querySelector("#bottomLocation");
 
 const getTop10HighestPopulation = (data) => {
   const sort10 = data.sort((a, b) => b.population - a.population);
@@ -354,6 +355,7 @@ const startGame = (data, headline) => {
   gameArea.appendChild(firstBox);
 };
 const top10GameOn = (data, headline, time) => {
+  bottomLocation.scrollIntoView()
   let score = 0;
   let correctGuess = [];
   gameArea.classList.remove("center-content");
@@ -411,6 +413,7 @@ const top10GameOn = (data, headline, time) => {
     correctGuess.forEach((correct) => {
       showAnswer(correct);
     });
+    
     setTimeout(() => {
       if (score === data.length) {
         endGame(data, correctGuess, score);

@@ -18,7 +18,8 @@ const fetchData = async () => {
     const countries = [...filteredData];
     const random = [...filteredData];
     const continents = [...filteredData];
-    const capitals = [...filteredData]
+    const capitals = [...filteredData];
+    const quiz= [...filteredData]
 
     await getRandomCountry(random);
     getTop10BiggestCountries(filteredData);
@@ -26,7 +27,7 @@ const fetchData = async () => {
     countryStartsWith(countries);
     allCountriesInContinent(continents);
     matchCapital(capitals)
-
+    
   } catch (error) {
     console.error(error);
   }
@@ -50,7 +51,6 @@ const findReligion = (country, data) => {
 fetchData();
 const getRandomCountry = async (data) => {
   const index = Math.floor(Math.random() * data.length);
-  console.log(data[index]);
   await showRandomCountry(data[index]);
 };
 const formatNumberWithCommas = (number) => {
@@ -158,6 +158,7 @@ const gameArea = document.querySelector("#game");
 const list1 = document.querySelector("#list1");
 const gameContainer = document.querySelector("#container");
 const bottomLocation= document.querySelector("#bottomLocation");
+let score=0
 
 const getTop10HighestPopulation = (data) => {
   const sort10 = data.sort((a, b) => b.population - a.population);
@@ -355,8 +356,8 @@ const startGame = (data, headline) => {
   gameArea.appendChild(firstBox);
 };
 const top10GameOn = (data, headline, time) => {
-  bottomLocation.scrollIntoView()
-  let score = 0;
+  bottomLocation.scrollIntoView({block: "end", inline: "nearest"})
+  score = 0;
   let correctGuess = [];
   gameArea.classList.remove("center-content");
   const timer = document.createElement("div");
@@ -395,7 +396,7 @@ const top10GameOn = (data, headline, time) => {
 
   submit.addEventListener("click", (e) => {
     e.preventDefault();
-    const guess = input.value.toLowerCase();
+    const guess = input.value.toLowerCase().trim();
     if (!controlAnswer(data, guess)) {
       console.log(data);
       return responsBackground("wrong");
@@ -502,13 +503,13 @@ const quizGame= (data)=>{
   gameArea.classList.add("center-content");
   const firstBox = document.createElement("div");
   firstBox.classList.add("button-box");
-  const h2 = document.createElement("h2");
-  h2.innerHTML = "Matcha huvudstad med land";
+  const headline = document.createElement("h2");
+  headline.innerHTML = "Matcha huvudstad med land";
   const p = document.createElement("p");
   p.innerHTML = "Svårighetsgraden baseras på tid";
   p.style.color = "white";
 
-  firstBox.appendChild(h2);
+  firstBox.appendChild(headline);
   firstBox.appendChild(p);
 
   const buttonContainer = document.createElement("div");
@@ -529,7 +530,7 @@ const quizGame= (data)=>{
   medium.classList.add("medium");
   medium.addEventListener("click", () => {
     gameArea.innerHTML = "";
-    top10GameOn(data, headline, 180);
+    startQuizGame(data, 180)
   });
   buttonContainer.appendChild(medium);
 
@@ -547,7 +548,7 @@ const quizGame= (data)=>{
 }
 const startQuizGame = (data, time)=>{
 let answers= [];
-let score=0;
+score=0
 const timer = document.createElement("div");
   timer.classList.add("timer");
   const timeLeft = document.createElement("p");
@@ -567,4 +568,29 @@ const timer = document.createElement("div");
   }, 1000);
   timer.appendChild(timeLeft);
   gameArea.appendChild(timer);
+  getRandomArray(data)
+
+}
+const scrambleArray= (data)=>{
+ return data.sort(() => Math.random() - 0.5);
+}
+const checkIfDuplicate = (array, country)=>{
+return array.some(name=> name.name===country.name)
+}
+const getRandomArray= (data)=>{
+  const gameArray=[]
+  const index = Math.floor(Math.random() * data.length);
+  const rightAnswer= data[index];
+  rightAnswer.answer=true;
+  gameArray.push(rightAnswer)
+  data.splice(index, 1);
+
+  while (gameArray.length < 4) {
+    const item = Math.floor(Math.random() * data.length);
+    if (!gameArray.includes(data[item])) {
+      item.answer=false
+        gameArray.push(data[item]);
+    }
+}
+console.log(gameArray)
 }

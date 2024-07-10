@@ -520,7 +520,7 @@ const quizGame= (data)=>{
   easyGame.innerHTML = "Långt spel";
   easyGame.addEventListener("click", () => {
     gameArea.innerHTML = "";
-    top10GameOn(data, headline, 240);
+    startQuizGame(data, 240);
   });
   buttonContainer.appendChild(easyGame);
 
@@ -540,7 +540,7 @@ const quizGame= (data)=>{
   hard.classList.add("hard");
   hard.addEventListener("click", () => {
     gameArea.innerHTML = "";
-    top10GameOn(data, headline, 10);
+    startQuizGame(data, 100);
   });
   buttonContainer.appendChild(hard);
 
@@ -574,9 +574,6 @@ const timer = document.createElement("div");
 const scrambleArray= (data)=>{
  return data.sort(() => Math.random() - 0.5);
 }
-const checkIfDuplicate = (array, country)=>{
-return array.some(name=> name.name===country.name)
-}
 const getRandomArray= (data)=>{
   const gameArray=[]
   const index = Math.floor(Math.random() * data.length);
@@ -588,9 +585,9 @@ const getRandomArray= (data)=>{
   while (gameArray.length < 4) {
     const item = Math.floor(Math.random() * data.length);
     if (!gameArray.includes(data[item])) {
-      item.answer=false
+      data[item].answer=false
         gameArray.push(data[item]);
     }
 }
-console.log(gameArray)
+return scrambleArray(gameArray)
 }

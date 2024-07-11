@@ -591,13 +591,28 @@ const getRandomArray= (data, answers)=>{
     }
 }
 scrambleArray(gameArray)
-showQuiz(gameArray, answers)
+showQuiz(gameArray, answers, data)
 }
-const showQuiz=(gameArray, answers)=>{
+const showQuiz=(gameArray, answers, data)=>{
 quizcontainer.innerHTML="";
 const headline=document.createElement("h2");
 quizcontainer.appendChild(headline);
 
 const scoreSheet= document.createElement("p");
 scoreSheet.innerHTML=`${score}/${answers.length}`
+quizcontainer.appendChild(scoreSheet)
+
+const buttonContainer= document.createElement("div");
+buttonContainer.classList.add("button-container");
+quizcontainer.appendChild(buttonContainer)
+
+gameArray.forEach(country=>{
+ if(country.answer){
+  headline.innerHTML=`Huvudstaden i ${country.name}`
+ } 
+ const button= document.createElement("button");
+ button.classList.add("quizButton")
+ button.innerHTML=`${country.capital}`
+ buttonContainer.appendChild(button)
+})
 }

@@ -158,6 +158,7 @@ const gameArea = document.querySelector("#game");
 const list1 = document.querySelector("#list1");
 const gameContainer = document.querySelector("#container");
 const bottomLocation= document.querySelector("#bottomLocation");
+const quizcontainer= document.querySelector("#quizcontainer")
 let score=0
 
 const getTop10HighestPopulation = (data) => {
@@ -568,13 +569,13 @@ const timer = document.createElement("div");
   }, 1000);
   timer.appendChild(timeLeft);
   gameArea.appendChild(timer);
-  getRandomArray(data)
+  getRandomArray(data, answers)
 
 }
 const scrambleArray= (data)=>{
  return data.sort(() => Math.random() - 0.5);
 }
-const getRandomArray= (data)=>{
+const getRandomArray= (data, answers)=>{
   const gameArray=[]
   const index = Math.floor(Math.random() * data.length);
   const rightAnswer= data[index];
@@ -589,5 +590,14 @@ const getRandomArray= (data)=>{
         gameArray.push(data[item]);
     }
 }
-return scrambleArray(gameArray)
+scrambleArray(gameArray)
+showQuiz(gameArray, answers)
+}
+const showQuiz=(gameArray, answers)=>{
+quizcontainer.innerHTML="";
+const headline=document.createElement("h2");
+quizcontainer.appendChild(headline);
+
+const scoreSheet= document.createElement("p");
+scoreSheet.innerHTML=`${score}/${answers.length}`
 }

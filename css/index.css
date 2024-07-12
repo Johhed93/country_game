@@ -222,3 +222,7 @@ border-width: 70%;
     background: #474767;
     border-radius: 5px;
 }
+.score {
+    font-size: 1.2rem;
+    color: rgb(213, 213, 213);
+}

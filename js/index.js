@@ -576,6 +576,7 @@ const scrambleArray= (data)=>{
  return data.sort(() => Math.random() - 0.5);
 }
 const getRandomArray= (data, answers)=>{
+  console.log(answers)
   const gameArray=[]
   const index = Math.floor(Math.random() * data.length);
   const rightAnswer= data[index];
@@ -599,6 +600,7 @@ const headline=document.createElement("h2");
 quizcontainer.appendChild(headline);
 
 const scoreSheet= document.createElement("p");
+scoreSheet.classList.add("score")
 scoreSheet.innerHTML=`${score}/${answers.length}`
 quizcontainer.appendChild(scoreSheet)
 
@@ -613,6 +615,28 @@ gameArray.forEach(country=>{
  const button= document.createElement("button");
  button.classList.add("quizButton")
  button.innerHTML=`${country.capital}`
+ button.value=`${country.answer}`
+ button.addEventListener("click", ()=>{
+  if(button.value==="true"){
+    score++
+    answers.push(country)
+    button.style.background="green"
+    setTimeout(() => {
+      getRandomArray(data,answers)
+    }, 700);
+  }else{
+  const rightAnswer=findCorrectAnswer(gameArray)
+  rightAnswer.yourGuess=`${country.capital} (${country.name})`;
+  answers.push(rightAnswer);
+  setTimeout(() => {
+    getRandomArray(data,answers)
+  }, 700);
+  }
+ })
  buttonContainer.appendChild(button)
+ 
 })
+}
+const findCorrectAnswer = (array)=>{
+  return array.find(arr=>arr.answer===true)
 }

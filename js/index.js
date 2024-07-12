@@ -541,7 +541,7 @@ const quizGame= (data)=>{
   hard.classList.add("hard");
   hard.addEventListener("click", () => {
     gameArea.innerHTML = "";
-    startQuizGame(data, 100);
+    startQuizGame(data, 30);
   });
   buttonContainer.appendChild(hard);
 
@@ -564,7 +564,7 @@ const timer = document.createElement("div");
     time--;
     if (time < 0) {
       clearInterval(timerInterval);
-      endGame(data, correctGuess, score);
+      endQuiz(answers)
     }
   }, 1000);
   timer.appendChild(timeLeft);
@@ -627,6 +627,7 @@ gameArray.forEach(country=>{
   }else{
   const rightAnswer=findCorrectAnswer(gameArray)
   rightAnswer.yourGuess=`${country.capital} (${country.name})`;
+  button.style.background="red"
   answers.push(rightAnswer);
   setTimeout(() => {
     getRandomArray(data,answers)
@@ -639,4 +640,26 @@ gameArray.forEach(country=>{
 }
 const findCorrectAnswer = (array)=>{
   return array.find(arr=>arr.answer===true)
+}
+const endQuiz= (arr)=>{
+  gameContainer.innerHTML=""
+  quizcontainer.innerHTML=""
+  const h2=document.createElement("h2");
+  h2.innerHTML=`Du fick ${score} av ${arr.length}`
+  gameContainer.appendChild(h2);
+  const list= document.createElement("ul");
+  list.classList.add("gamelist")
+  gameContainer.appendChild(list)
+  arr.forEach(ans=>{
+    const li= document.createElement("li");
+    li.classList.add("result");
+    if(ans.yourGuess){
+      li.innerHTML=`Huvudstaden i ${ans.name} = ${ans.capital}, din gissning ${ans.yourGuess}`
+      li.classList.add("wrong");
+
+    }else{
+      li.innerHTML= `Huvudstaden i ${ans.name} = ${ans.capital}`
+    }
+    list.appendChild(li)
+  })
 }
